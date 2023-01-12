@@ -26,7 +26,7 @@ const Home: NextPage = ({ posts, members, memcats }: any) => {
         <ul>
           {members.map((mem: any) => (
             <li key={mem.id}>
-              <Link href={`/members/${mem.slug}`}>
+              <Link href={`/members/member/${mem.slug}`}>
                 {mem.title.rendered}
               </Link>
               <ul>

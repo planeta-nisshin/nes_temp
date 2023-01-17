@@ -11,10 +11,17 @@ export default function handler(req: any, res: any) {
             subject: 'お問合せありがとうございました。',
             text: `${req.body.name} 様\nお問合せを受け付けました。回答をお待ちください。\n\n【件名】${req.body.subject}\n${req.body.message}`
         };
-
+        const msg2 = {
+            to: 'hisano@planeta.co.jp',
+            bcc: '',
+            from: 'hisano@planeta.co.jp',
+            subject: 'お問合せがありました',
+            text: `${req.body.name} 様\nお問合せを受け付けました。回答をお待ちください。\n\n【件名】${req.body.subject}\n${req.body.message}`
+        };
         (async () => {
             try {
                 response = await sgMail.send(msg);
+                response = await sgMail.send(msg2);
             } catch (error: any) {
                 console.error(error);
                 if (error.response) {

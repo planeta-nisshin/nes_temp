@@ -62,18 +62,18 @@ const ContactForm = () => {
             body: JSON.stringify({
                 name: formname,
                 email: formemail,
-                message: formmessage
+                message: formmessage,
+                subject: "お問い合わせいただきました"
             }),
             headers: {
                 'Content-Type': 'application/json'
             },
             method: 'POST'
         })
-
-        if (res.ok) Router.push('/thank-you')
         if (res.ok) {
             alert("送信完了しました")
         }
+        if (res.ok) Router.push('/thank-you')
     }
     const [zipcode, setZipcodeMain] = useState<Zipcode>({
         main: "",

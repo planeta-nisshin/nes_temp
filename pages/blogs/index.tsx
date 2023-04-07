@@ -7,13 +7,13 @@ import wpClient from '../../lib/wpapi'
 const PER_PAGE = 5
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL
 
-const Members = ({ members, memcats, allposts }: any) => {
+const blogs = ({ blogs, memcats, allposts }: any) => {
     return (
         <>
             <ul>
-                {members.map((mem: any) => (
+                {blogs.map((mem: any) => (
                     <li key={mem.id}>
-                        <Link href={`/members/member/${mem.slug}`}>
+                        <Link href={`/blogs/blog/${mem.slug}`}>
                             {mem.title.rendered}
                         </Link>
                         <ul>
@@ -24,23 +24,23 @@ const Members = ({ members, memcats, allposts }: any) => {
                     </li>
                 ))}
             </ul>
-            <Pagination totalCount={allposts} pageslug={`members`} per_page={PER_PAGE} />
+            <Pagination totalCount={allposts} pageslug={`blogs`} per_page={PER_PAGE} />
         </>
     )
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-    const member = await wpClient.url(`${API_URL}/wp-json/wp/v2/member?_embed&per_page=100`).perPage(PER_PAGE)
-    const allpost = await wpClient.url(`${API_URL}/wp-json/wp/v2/member?per_page=100`)
+    const blog = await wpClient.url(`${API_URL}/wp-json/wp/v2/blog?_embed&per_page=100`).perPage(PER_PAGE)
+    const allpost = await wpClient.url(`${API_URL}/wp-json/wp/v2/blog?per_page=100`)
     const allcount = Number(allpost.length)
-    const memcat = await wpClient.url(`${API_URL}/wp-json/wp/v2/mem_cat?per_page=100`)
+    const memcat = await wpClient.url(`${API_URL}/wp-json/wp/v2/blog_cat?per_page=100`)
     return {
         props: {
-            members: member,
+            blogs: blog,
             memcats: memcat,
             allposts: allcount
         }
     }
 }
 
-export default Members
+export default blogs
